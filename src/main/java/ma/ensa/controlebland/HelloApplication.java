@@ -21,9 +21,7 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
-        Membre membre = new Membre();
-        membre.setIdentifiant("hi");
 
-        System.out.println(membre.getIdentifiant());
+
     }
 }
