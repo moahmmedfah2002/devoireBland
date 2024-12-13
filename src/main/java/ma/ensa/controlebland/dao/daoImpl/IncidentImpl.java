@@ -14,14 +14,17 @@ public class IncidentImpl implements IncidentDao {
     private Connection con;
     public IncidentImpl() throws SQLException, ClassNotFoundException {
         Connexion connexion=new Connexion();
+        con=connexion.getCon();
     }
 
     @Override
     public boolean insert(Incident incident) throws SQLException {
-        PreparedStatement ps=this.con.prepareCall("INSERT INTO incident(time,statue,idMember) values (?,?,?)");
-        ps.setDate(1,incident.getTime());
-        ps.setBoolean(2,incident.isStatue());
-        ps.setString(3,incident.getMembre().getIdentifiant());
+        PreparedStatement ps=this.con.prepareCall("INSERT INTO incident(referance,time,statue,idMembre) values (?,?,?,?)");
+        ps.setString(1,incident.getReferance());
+        ps.setDate(2,incident.getTime());
+        ps.setBoolean(3,incident.isStatue());
+        ps.setString(4,incident.getMembre().getIdentifiant());
+
         return ps.executeUpdate()>0;
 
 
@@ -32,10 +35,15 @@ public class IncidentImpl implements IncidentDao {
         final boolean[] res = {true};
         is.forEach((e)->{
             try {
-                PreparedStatement ps=this.con.prepareCall("INSERT INTO incident(time,statue,idMember) values (?,?,?)");
-                ps.setDate(1,e.getTime());
-                ps.setBoolean(2,e.isStatue());
-                ps.setString(3,e.getMembre().getIdentifiant());
+                PreparedStatement ps=this.con.prepareCall("INSERT INTO incident(referance,time,statue,idMembre) values (?,?,?,?)");
+                ps.setString(1,e.getReferance());
+                ps.setDate(2,e.getTime());
+                ps.setBoolean(3,e.isStatue());
+                System.out.println(e.getMembre().getIdentifiant());
+
+
+                ps.setString(4,e.getMembre().getIdentifiant());
+                ps.executeUpdate();
 
 
 
