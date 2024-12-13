@@ -41,13 +41,15 @@ public class MenberImpl implements MembreDao {
         ps.setString(3,M.getPrenom());
         ps.setString(4,M.getEmail());
         ps.setString(5,M.getPhone());
+
         result=ps.executeUpdate()>0;
+        if(result){
         for(Incident i:M.getIncidents()){
             PreparedStatement ps1 = this.con.prepareCall("INSERT INTO memberincident(idMember,idIncident) VALUES (?,?)");
             ps1.setString(2,i.getReferance());
-            ps1.setString(1,ps.getGeneratedKeys().getString("identifiant"));
+            ps1.setString(1,M.getIdentifiant());
             result =ps1.executeUpdate()>0;
-        }
+        }}
         return result;
 
 
