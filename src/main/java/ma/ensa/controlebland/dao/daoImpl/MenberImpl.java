@@ -9,6 +9,7 @@ import ma.ensa.controlebland.entity.Incident;
 import ma.ensa.controlebland.entity.Membre;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Member;
@@ -92,28 +93,24 @@ public class MenberImpl implements MembreDao {
         File file = new File(nomFichier);
         Set<Membre> res = new HashSet<>();
         try (
-                Reader reader = Files.newBufferedReader(Paths.get(nomFichier));
-                CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(1).build();
+//                Reader reader = Files.newBufferedReader();
+                CSVReader csvReader = new CSVReader(new FileReader(nomFichier));
         ) {
             // Reading Records One by One in a String array
             String[] nextRecord;
 
-            try {
-                while ((nextRecord = csvReader.readNext()) != null) {
+            csvReader.forEach((e)->{
 
-                    Membre membre = new Membre();
-                    membre.setNom(nextRecord[0]);
-                    membre.setPrenom(nextRecord[1]);
-                    membre.setEmail(nextRecord[2]);
-                    membre.setPhone(nextRecord[3]);
-                    res.add(membre);
+                Membre membre = new Membre();
+                membre.setNom(e[0]);
+                System.out.println(e[0]);
+                membre.setPrenom(e[1]);
+                membre.setEmail(e[2]);
+                membre.setPhone(e[3]);
+                res.add(membre);
+            });
 
-                }
-            } catch (CsvValidationException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
