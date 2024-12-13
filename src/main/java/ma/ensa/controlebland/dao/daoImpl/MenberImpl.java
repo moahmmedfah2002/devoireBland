@@ -37,10 +37,10 @@ public class MenberImpl implements MembreDao {
         PreparedStatement ps = this.con.prepareCall("INSERT INTO member(identifiant,nom,prenom,email,phone) VALUES (?,?,?,?,?)");
         boolean result=false;
         ps.setString(1, M.getIdentifiant());
-        ps.setString(1, M.getNom());
-        ps.setString(2,M.getPrenom());
-        ps.setString(3,M.getEmail());
-        ps.setString(4,M.getPhone());
+        ps.setString(2, M.getNom());
+        ps.setString(3,M.getPrenom());
+        ps.setString(4,M.getEmail());
+        ps.setString(5,M.getPhone());
         result=ps.executeUpdate()>0;
         for(Incident i:M.getIncidents()){
             PreparedStatement ps1 = this.con.prepareCall("INSERT INTO memberincident(idMember,idIncident) VALUES (?,?)");

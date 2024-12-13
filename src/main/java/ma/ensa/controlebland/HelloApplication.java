@@ -4,7 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ma.ensa.controlebland.entity.Membre;
 
+import javax.net.ssl.SSLContext;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -19,5 +21,9 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+        Membre membre = new Membre();
+        membre.setIdentifiant("hi");
+
+        System.out.println(membre.getIdentifiant());
     }
 }

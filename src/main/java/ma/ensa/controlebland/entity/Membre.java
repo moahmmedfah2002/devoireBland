@@ -12,7 +12,7 @@ public class Membre {
     private List<Incident> incidents;
 
     public Membre(String identifiant, String nom, String prenom, String email, String phone, List<Incident> incidents) {
-        this.identifiant = identifiant;
+        this.identifiant = String.valueOf(System.currentTimeMillis());
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -43,10 +43,10 @@ public class Membre {
     }
 
     public String getIdentifiant() {
-        return identifiant;
+        return this.identifiant;
     }
 
-    public void setIdentifiant(String setIdentifiant) {
+    public void setIdentifiant(String identifiant) {
         this.identifiant = identifiant;
     }
 

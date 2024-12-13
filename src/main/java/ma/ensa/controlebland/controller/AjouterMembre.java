@@ -1,10 +1,10 @@
 package ma.ensa.controlebland.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import ma.ensa.controlebland.dao.daoImpl.MenberImpl;
 import ma.ensa.controlebland.entity.Membre;
 
@@ -13,23 +13,25 @@ import java.sql.SQLException;
 public class AjouterMembre {
 
     @FXML
-    TextField nom=new TextField();
+    public TextField nom=new TextField();
 
     @FXML
-    TextField prenom=new TextField();
+    public TextField prenom=new TextField();
 
     @FXML
-    TextField email=new TextField();
+    public TextField email=new TextField();
 
     @FXML
-    TextField phone=new TextField();
+    public TextField phone=new TextField();
 
     @FXML
-    Button insertBtn=new Button();
+    public Button insertBtn=new Button();
+    @FXML
+    public Label msg=new Label();
 
     @FXML
-    public void insert(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        if(insertBtn.isPressed()){
+    public void insert(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
+        if(mouseEvent.getClickCount()==1){
             MenberImpl menberImpl=new MenberImpl();
             Membre membre=new Membre();
             membre.setIdentifiant(String.valueOf(System.currentTimeMillis()));
@@ -37,7 +39,13 @@ public class AjouterMembre {
             membre.setPrenom(prenom.getText());
             membre.setEmail(email.getText());
             membre.setPhone(phone.getText());
-            menberImpl.inser(membre);
+            if(menberImpl.inser(membre)){
+                msg.setText("added");
+
+            }else {
+                msg.setText("not added");
+            }
+
 
         }
 
