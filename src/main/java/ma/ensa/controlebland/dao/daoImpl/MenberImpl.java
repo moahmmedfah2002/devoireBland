@@ -44,8 +44,8 @@ public class MenberImpl implements MembreDao {
         result=ps.executeUpdate()>0;
         for(Incident i:M.getIncidents()){
             PreparedStatement ps1 = this.con.prepareCall("INSERT INTO memberincident(idMember,idIncident) VALUES (?,?)");
-            ps1.setString(1,i.getReferance());
-            ps1.setInt(2,ps.getGeneratedKeys().getInt("identifiant"));
+            ps1.setString(2,i.getReferance());
+            ps1.setString(1,ps.getGeneratedKeys().getString("identifiant"));
             result =ps1.executeUpdate()>0;
         }
         return result;
